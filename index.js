@@ -44,6 +44,23 @@ function updateCity(event) {
   }
 }
 
+function currentLocation(event) {
+  let currentCityElement = docuement.getElementById("location");
+  let currentDateElements = document.querySelectorAll(".date-time .date");
+  let currentTimeElements = document.querySelectorAll(".date-time .time");
+  let cityTime = moment().tz.guess();
+  let currentTime = moment().tz(guessedTimeZone);
+  let location = guessedTimeZone;
+  let time = currentTime.format("HH:mm");
+  let date = currentTime.format("YYYY-MM-DD");
+
+  if (event && event.target.value === "currentLocation") {
+    currentCityElement.innerHTML = location;
+    currentDateElements.innerHTML = date;
+    currentTimeElements.innerHTML = time;
+  }
+}
+
 function initializeCity() {
   let selectElement = document.getElementById("city-selector");
   let selectedCity = selectElement.value;
