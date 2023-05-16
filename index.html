@@ -12,25 +12,25 @@
   <body>
     <div class="container">
       <h1>World Clock</h1>
-      <select>
+      <select id="city-selector">
         <option value="">Select a city</option>
-        <option value="">London</option>
-        <option value="">Tokyo</option>
-        <option value="">Cairo</option>
-        <option value="">San Francisco</option>
+        <option value="london">London</option>
+        <option value="tokyo">Tokyo</option>
+        <option value="cairo">Cairo</option>
+        <option value="sanFransisco">San Francisco</option>
       </select>
       <div class="london">
-        <h2>London</h2>
-        <div class="date-time">
-          <div class="date">13 May 2023</div>
-          <div class="time">22:46 PM</div>
+        <h2 id="londonName">London</h2>
+        <div class="update">
+          <div class="date"></div>
+          <div class="time"></div>
         </div>
       </div>
       <div class="tokyo">
-        <h2>Tokyo</h2>
+        <h2 id="tokyoName">Tokyo</h2>
         <div class="date-time">
-          <div class="date">14 May 2023</div>
-          <div class="time">06:46 AM</div>
+          <div class="date"></div>
+          <div class="time"></div>
         </div>
       </div>
     </div>
