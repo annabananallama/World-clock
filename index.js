@@ -9,13 +9,21 @@ function startTimer(cityTime, dateElements, timeElements) {
 
   function updateTime() {
     for (let i = 0; i < timeElements.length; i++) {
-      timeElements[i].innerHTML = cityTime.format("h:mm:ss A");
+      timeElements[i].innerHTML = cityTime.format("h:mm A");
     }
   }
 
   updateTime();
 
   timerInterval = setInterval(updateTime, 1000);
+}
+
+function initializeCity() {
+  let selectElement = document.getElementById("city-selector");
+  selectElement.addEventListener("change", updateCity);
+
+  let selectedCity = selectElement.value;
+  updateCity({ target: selectElement });
 }
 
 function updateCity(event) {
@@ -29,46 +37,44 @@ function updateCity(event) {
 
   clearInterval(timerInterval);
 
-  if (event && event.target.value === "cairo") {
+  if (event.target.value === "cairo") {
     newCityElement.innerHTML = "Cairo";
     startTimer(cairoTime, newDateElements, newTimeElements);
-  } else if (event && event.target.value === "sanFransisco") {
+  } else if (event.target.value === "sanFransisco") {
     newCityElement.innerHTML = "San Francisco";
     startTimer(sanFranciscoTime, newDateElements, newTimeElements);
-  } else if (event && event.target.value === "tokyo") {
+  } else if (event.target.value === "tokyo") {
     newCityElement.innerHTML = "Tokyo";
     startTimer(tokyoTime, newDateElements, newTimeElements);
+  } else if (event.target.value === "currentLocation") {
+    currentCity();
   } else {
     newCityElement.innerHTML = "London";
     startTimer(londonTime, newDateElements, newTimeElements);
   }
 }
 
-function currentLocation(event) {
-  let currentCityElement = docuement.getElementById("location");
-  let currentDateElements = document.querySelectorAll(".date-time .date");
-  let currentTimeElements = document.querySelectorAll(".date-time .time");
-  let cityTime = moment().tz.guess();
-  let currentTime = moment().tz(guessedTimeZone);
-  let location = guessedTimeZone;
-  let time = currentTime.format("HH:mm");
-  let date = currentTime.format("YYYY-MM-DD");
+function currentCity() {
+  let currentCityElement = document.getElementById("location");
+  let currentDateElements = document.querySelectorAll(
+    ".date-time .currentDate"
+  );
+  let currentTimeElements = document.querySelectorAll(
+    ".date-time .currentTime"
+  );
+  let currentTime = moment();
+  let currentLocation = moment.tz.guess();
 
-  if (event && event.target.value === "currentLocation") {
-    currentCityElement.innerHTML = location;
-    currentDateElements.innerHTML = date;
-    currentTimeElements.innerHTML = time;
-  }
-}
+  currentCityElement.innerHTML = currentLocation;
 
-function initializeCity() {
-  let selectElement = document.getElementById("city-selector");
-  let selectedCity = selectElement.value;
+  currentDateElements.forEach((element) => {
+    element.innerHTML = currentTime.format("DD MMMM Y");
+  });
 
-  updateCity({ target: { value: selectedCity } });
+  currentTimeElements.forEach((element) => {
+    element.innerHTML = currentTime.format("h:mm A");
+  });
 }
 
 const selectElement = document.getElementById("city-selector");
-selectElement.addEventListener("change", updateCity);
-
 initializeCity();
